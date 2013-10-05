@@ -1,12 +1,12 @@
-var XsdVisualizer;
-(function (XsdVisualizer) {
-    var Application = (function () {
-        function Application() {
-            debugger;
-        }
-        return Application;
-    })();
-    XsdVisualizer.Application = Application;
-})(XsdVisualizer || (XsdVisualizer = {}));
+///<reference path="References.ts" />
+var Application = (function () {
+    function Application() {
+        var visualizerView = new XsdVisualizer.VisualizerView("hello");
+        $(".VisualizerContainer").empty().append(visualizerView.$Element);
+    }
+    return Application;
+})();
 
-new XsdVisualizer.Application();
+$(document).ready(function () {
+    new Application();
+});

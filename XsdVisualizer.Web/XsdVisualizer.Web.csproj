@@ -122,8 +122,10 @@
     <TypeScriptCompile Include="Scripts\VisualizerView.ts" />
     <TypeScriptCompile Include="Scripts\Application.ts" />
     <Content Include="Scripts\Application.js" />
-    <Content Include="Scripts\raphael.d.ts" />
-    <Content Include="Scripts\raphael.js" />
+    <Content Include="Scripts\Thirdparty\jquery.d.ts" />
+    <Content Include="Scripts\Thirdparty\raphael.d.ts" />
+    <Content Include="Scripts\Thirdparty\raphael.js" />
+    <TypeScriptCompile Include="Scripts\References.ts" />
     <Content Include="Scripts\VisualizerView.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
