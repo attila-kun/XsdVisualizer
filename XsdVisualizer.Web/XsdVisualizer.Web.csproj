@@ -122,11 +122,14 @@
     <TypeScriptCompile Include="Scripts\VisualizerView.ts" />
     <TypeScriptCompile Include="Scripts\Application.ts" />
     <Content Include="Scripts\Application.js" />
+    <Content Include="Scripts\References.js" />
     <Content Include="Scripts\Thirdparty\jquery.d.ts" />
     <Content Include="Scripts\Thirdparty\raphael.d.ts" />
     <Content Include="Scripts\Thirdparty\raphael.js" />
     <TypeScriptCompile Include="Scripts\References.ts" />
     <Content Include="Scripts\VisualizerView.js" />
+    <TypeScriptCompile Include="Scripts\XsdModel.ts" />
+    <Content Include="Scripts\XsdModel.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
