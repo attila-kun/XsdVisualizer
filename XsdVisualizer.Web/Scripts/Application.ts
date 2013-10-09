@@ -7,8 +7,11 @@ class Application {
 			.empty()
 			.append(visualizerView.$Element);
 	}
-}
 
-$(document).ready(function () {
-	new Application();
-});
+	loadXsd(url: string) {
+		$.get(url, null, null, "text")
+			.then(function (response) {
+				XsdVisualizer.Parser.parse(response);
+			});				
+	}
+}

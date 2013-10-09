@@ -2,3 +2,5 @@
 
 ///<reference path="Thirdparty/jquery.d.ts" />
 ///<reference path="Thirdparty/raphael.d.ts" />
+///<reference path="Model.ts" />
+///<reference path="Parser.ts" />

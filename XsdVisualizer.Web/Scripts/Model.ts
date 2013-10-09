@@ -1,35 +1,35 @@
 module XsdVisualizer.Model {
-	interface Document {
+	export interface Document {
 		Types: Type[];
 		Elements: Element[];
 	}
 
-	interface Type {
+	export interface Type {
 		Name: string;
 	}
 
-	interface BuiltInType extends Type {
+	export interface BuiltInType extends Type {
 
 	}
 
-	interface SimpleType extends Type {
+	export interface SimpleType extends Type {
 
 	}
 
-	interface ComplexType extends Type {
+	export interface ComplexType extends Type {
 		Sequence: Sequence;
 	}
 
-	interface Sequence {
+	export interface Sequence {
 		Elements: Element[];
 	}
 
-	interface Element {
+	export interface Element {
 		Name: string;
 		Type: Type;
 	}
 
-	interface Restriction {
+	export interface Restriction {
 		Base: Type
 	}
 }
