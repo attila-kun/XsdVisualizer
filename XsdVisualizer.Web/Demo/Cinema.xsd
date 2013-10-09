@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="customername" type="xs:string"/>
+<xs:element name="price" type="xs:decimal"/>
+<xs:element name="title" type="xs:string"/>
+<xs:element name="movieid" type="xs:positiveInteger"/>
+
+<xs:element name="movie">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="movieid"/>
+      <xs:element ref="title"/>
+	    <xs:element ref="price"/>
+    </xs:sequence>    
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="ticket">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="movieid"/>
+	  <xs:element ref="price"/>
+    </xs:sequence>    
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="screening">
+  <xs:complexType>
+    <xs:sequence>      
+      <xs:element ref="customername"/>
+      <xs:element ref="ticket" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>    
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>
