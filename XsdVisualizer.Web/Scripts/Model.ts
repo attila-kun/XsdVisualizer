@@ -1,35 +1,50 @@
 module XsdVisualizer.Model {
-	export interface Document {
-		Types: Type[];
-		Elements: Element[];
+	export enum TypeState {
+		//Used during parsing, when object refrences are not fixed up yet.
+		Stub,
+
+		Concrete
 	}
 
-	export interface Type {
-		Name: string;
+	export class Document {
+		types: Type[];
+		elements: Element[];
 	}
 
-	export interface BuiltInType extends Type {
+	export class Type {
+		name: string;
+		state: TypeState;
+		getReferencedTypes(): Type[] {
+			return [];
+		}
+	}
+
+	export class BuiltInType extends Type {
 
 	}
 
-	export interface SimpleType extends Type {
+	export class SimpleType extends Type {
 
 	}
 
-	export interface ComplexType extends Type {
-		Sequence: Sequence;
+	export class ComplexType extends Type {
+		sequence: Sequence;
+		getReferencedTypes() {
+			var types = $.map(this.sequence.elements, (element, index) => element.type);
+			return types;
+		}
 	}
 
-	export interface Sequence {
-		Elements: Element[];
+	export class Sequence {
+		elements: Element[];
 	}
 
-	export interface Element {
-		Name: string;
-		Type: Type;
+	export class Element {
+		name: string;
+		type: Type;
 	}
 
-	export interface Restriction {
-		Base: Type
+	export class Restriction {
+		base: Type
 	}
 }
