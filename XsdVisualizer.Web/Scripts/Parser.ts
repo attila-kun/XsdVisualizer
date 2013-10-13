@@ -1,6 +1,19 @@
 ///<reference path="References.ts" />
 
 module XsdVisualizer.Parser {
+
+	//Useful for collecting all XsdVisualizer.Model.Element instances in a document.
+	class ElementCollector implements XsdVisualizer.Model.DocumentVisitor {		
+		private _elements: XsdVisualizer.Model.Element[] = [];
+		get elements() {
+			return this._elements;
+		}		
+
+		visitElement(element: XsdVisualizer.Model.Element) {
+			this._elements.push(element);
+		}
+	}
+
 	class ModelBuilder {
 
 		private types: { [name: string]: XsdVisualizer.Model.Type; } = {};
@@ -26,16 +39,16 @@ module XsdVisualizer.Parser {
 		}
 
 		private parseElement($element: JQuery): XsdVisualizer.Model.Element {
-			return {
-				name: $element.attr("name"),
-				type: this.getTypeStub($element.attr("type"))
-			};
+			var element = new XsdVisualizer.Model.Element();
+			element.name = $element.attr("name");
+			element.type = this.getTypeStub($element.attr("type"));
+			return element;
 		}
 
 		private parseSequence($parseSequence: JQuery): XsdVisualizer.Model.Sequence {
-			return {
-				elements: this.mapElements(find($parseSequence, "xs:element"), ($element) => this.parseElement($element))
-			};
+			var sequence = new XsdVisualizer.Model.Sequence();
+			sequence.elements = this.mapElements(find($parseSequence, "xs:element"), ($element) => this.parseElement($element));
+			return sequence;
 		}
 
 		private parseComplexType($complexType: JQuery): XsdVisualizer.Model.ComplexType {
@@ -52,10 +65,21 @@ module XsdVisualizer.Parser {
 
 		//Overwriting type stubs with concrete types wherever possible.
 		private fixUpReferences(document: XsdVisualizer.Model.Document) {
-			var concreteTypes = document.types;
-			var concreteTypeDictionary = toDictionary(document.types, type => type.name);
+			var concreteTypes = document.types,
+				concreteTypeDictionary = toDictionary(document.types, type => type.name),
+				elementCollector = new ElementCollector();
 
-			var typeNames = $.map(concreteTypes, (type, index) => type.name);
+			document.accept(elementCollector);
+			var elements = elementCollector.elements;
+
+			$.each(elements, (index, element) => {
+				//we assume that element.type.state is always stub at this point, therefore we overwrite the stubs with concrete types if possible				
+				var typeName = element.type.name,
+					concreteType = concreteTypeDictionary[typeName];
+
+				if (concreteType)
+					element.type = concreteType;
+			});			
 		}
 
 		public parse(markup: string): XsdVisualizer.Model.Document {
@@ -65,12 +89,11 @@ module XsdVisualizer.Parser {
 				$complexTypes = find($schema, "> xs:complexType");				
 			
 			var complexTypes = this.mapElements($complexTypes, ($element) => this.parseComplexType($element));
-			
-			var document: XsdVisualizer.Model.Document = {
-				types: [],
-				elements: []
-			};
-			return null;
+			var document = new XsdVisualizer.Model.Document();
+			document.types = complexTypes;
+			document.elements = []
+			this.fixUpReferences(document);
+			return document;
 		}
 
 	}
@@ -79,6 +102,8 @@ module XsdVisualizer.Parser {
 		return $node.find(selector.replace(":", "\\:"));
 	}
 
+	//Creates a hashmap out of the passed in elements array.
+	//The keys of the hashmap will be the array items' property values defined by keySelector.
 	function toDictionary<T>(elements: T[], keySelector: (element: T) => string): { [key: string]: T; } {
 		var dictionary: { [key: string]: T; } = {};
 		$.each(elements, (index, element) => {

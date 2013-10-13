@@ -2,6 +2,24 @@ var XsdVisualizer;
 (function (XsdVisualizer) {
     ///<reference path="References.ts" />
     (function (Parser) {
+        var ElementCollector = (function () {
+            function ElementCollector() {
+                this._elements = [];
+            }
+            Object.defineProperty(ElementCollector.prototype, "elements", {
+                get: function () {
+                    return this._elements;
+                },
+                enumerable: true,
+                configurable: true
+            });
+
+            ElementCollector.prototype.visitElement = function (element) {
+                this._elements.push(element);
+            };
+            return ElementCollector;
+        })();
+
         var ModelBuilder = (function () {
             function ModelBuilder() {
                 this.types = {};
@@ -28,19 +46,19 @@ var XsdVisualizer;
             };
 
             ModelBuilder.prototype.parseElement = function ($element) {
-                return {
-                    name: $element.attr("name"),
-                    type: this.getTypeStub($element.attr("type"))
-                };
+                var element = new XsdVisualizer.Model.Element();
+                element.name = $element.attr("name");
+                element.type = this.getTypeStub($element.attr("type"));
+                return element;
             };
 
             ModelBuilder.prototype.parseSequence = function ($parseSequence) {
                 var _this = this;
-                return {
-                    elements: this.mapElements(find($parseSequence, "xs:element"), function ($element) {
-                        return _this.parseElement($element);
-                    })
-                };
+                var sequence = new XsdVisualizer.Model.Sequence();
+                sequence.elements = this.mapElements(find($parseSequence, "xs:element"), function ($element) {
+                    return _this.parseElement($element);
+                });
+                return sequence;
             };
 
             ModelBuilder.prototype.parseComplexType = function ($complexType) {
@@ -56,13 +74,19 @@ var XsdVisualizer;
 
             //Overwriting type stubs with concrete types wherever possible.
             ModelBuilder.prototype.fixUpReferences = function (document) {
-                var concreteTypes = document.types;
-                var concreteTypeDictionary = toDictionary(document.types, function (type) {
+                var concreteTypes = document.types, concreteTypeDictionary = toDictionary(document.types, function (type) {
                     return type.name;
-                });
+                }), elementCollector = new ElementCollector();
 
-                var typeNames = $.map(concreteTypes, function (type, index) {
-                    return type.name;
+                document.accept(elementCollector);
+                var elements = elementCollector.elements;
+
+                $.each(elements, function (index, element) {
+                    //we assume that element.type.state is always stub at this point, therefore we overwrite the stubs with concrete types if possible
+                    var typeName = element.type.name, concreteType = concreteTypeDictionary[typeName];
+
+                    if (concreteType)
+                        element.type = concreteType;
                 });
             };
 
@@ -73,12 +97,12 @@ var XsdVisualizer;
                 var complexTypes = this.mapElements($complexTypes, function ($element) {
                     return _this.parseComplexType($element);
                 });
-
-                var document = {
-                    types: [],
-                    elements: []
-                };
-                return null;
+                var document = new XsdVisualizer.Model.Document();
+                document.types = complexTypes;
+                document.elements = [];
+                this.fixUpReferences(document);
+                debugger;
+                return document;
             };
             return ModelBuilder;
         })();

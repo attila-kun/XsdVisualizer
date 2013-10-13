@@ -6,16 +6,23 @@ module XsdVisualizer.Model {
 		Concrete
 	}
 
+	export interface DocumentVisitor {
+		visitElement(element: XsdVisualizer.Model.Element);
+	}
+
 	export class Document {
 		types: Type[];
 		elements: Element[];
+		accept(visitor: XsdVisualizer.Model.DocumentVisitor) {
+			$.each(this.types, (index, type) => type.accept(visitor));
+		}
 	}
 
 	export class Type {
 		name: string;
 		state: TypeState;
-		getReferencedTypes(): Type[] {
-			return [];
+		accept(visitor: XsdVisualizer.Model.DocumentVisitor) {
+			throw new Error();
 		}
 	}
 
@@ -29,19 +36,24 @@ module XsdVisualizer.Model {
 
 	export class ComplexType extends Type {
 		sequence: Sequence;
-		getReferencedTypes() {
-			var types = $.map(this.sequence.elements, (element, index) => element.type);
-			return types;
+		accept(visitor: XsdVisualizer.Model.DocumentVisitor) {
+			this.sequence.accept(visitor);
 		}
 	}
 
 	export class Sequence {
 		elements: Element[];
+		accept(visitor: XsdVisualizer.Model.DocumentVisitor) {
+			$.each(this.elements, (index, element) => element.accept(visitor));
+		}
 	}
 
 	export class Element {
 		name: string;
 		type: Type;
+		accept(visitor: XsdVisualizer.Model.DocumentVisitor) {
+			visitor.visitElement(this);
+		}
 	}
 
 	export class Restriction {

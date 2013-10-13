@@ -18,6 +18,11 @@ var XsdVisualizer;
         var Document = (function () {
             function Document() {
             }
+            Document.prototype.accept = function (visitor) {
+                $.each(this.types, function (index, type) {
+                    return type.accept(visitor);
+                });
+            };
             return Document;
         })();
         Model.Document = Document;
@@ -25,8 +30,8 @@ var XsdVisualizer;
         var Type = (function () {
             function Type() {
             }
-            Type.prototype.getReferencedTypes = function () {
-                return [];
+            Type.prototype.accept = function (visitor) {
+                throw new Error();
             };
             return Type;
         })();
@@ -55,11 +60,8 @@ var XsdVisualizer;
             function ComplexType() {
                 _super.apply(this, arguments);
             }
-            ComplexType.prototype.getReferencedTypes = function () {
-                var types = $.map(this.sequence.elements, function (element, index) {
-                    return element.type;
-                });
-                return types;
+            ComplexType.prototype.accept = function (visitor) {
+                this.sequence.accept(visitor);
             };
             return ComplexType;
         })(Type);
@@ -68,6 +70,11 @@ var XsdVisualizer;
         var Sequence = (function () {
             function Sequence() {
             }
+            Sequence.prototype.accept = function (visitor) {
+                $.each(this.elements, function (index, element) {
+                    return element.accept(visitor);
+                });
+            };
             return Sequence;
         })();
         Model.Sequence = Sequence;
@@ -75,6 +82,9 @@ var XsdVisualizer;
         var Element = (function () {
             function Element() {
             }
+            Element.prototype.accept = function (visitor) {
+                visitor.visitElement(this);
+            };
             return Element;
         })();
         Model.Element = Element;
