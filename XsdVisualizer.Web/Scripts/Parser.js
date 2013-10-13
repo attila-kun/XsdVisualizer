@@ -19,6 +19,7 @@ var XsdVisualizer;
 
         var ModelBuilder = (function () {
             function ModelBuilder() {
+                this.types = [];
             }
             ModelBuilder.prototype.mapElements = function ($elements, callback) {
                 var result = $elements.map(function (index, element) {
@@ -61,7 +62,7 @@ var XsdVisualizer;
             ModelBuilder.prototype.parseSequence = function ($parseSequence) {
                 var _this = this;
                 var sequence = new XsdVisualizer.Model.Sequence();
-                sequence.elements = this.mapElements(find($parseSequence, "xs:element"), function ($element) {
+                sequence.elements = this.mapElements(find($parseSequence, "> xs:element"), function ($element) {
                     return _this.parseElement($element);
                 });
                 return sequence;
@@ -70,8 +71,9 @@ var XsdVisualizer;
             ModelBuilder.prototype.parseComplexType = function ($complexType) {
                 var complexType = new XsdVisualizer.Model.ComplexType();
                 complexType.name = $complexType.attr("name");
-                complexType.sequence = this.parseSequence(find($complexType, "xs:sequence"));
+                complexType.sequence = this.parseSequence(find($complexType, "> xs:sequence"));
                 complexType.state = XsdVisualizer.Model.TypeState.Concrete;
+                this.types.push(complexType);
                 return complexType;
             };
 
@@ -85,7 +87,10 @@ var XsdVisualizer;
                 var elements = elementCollector.elements();
 
                 $.each(elements, function (index, element) {
-                    //we assume that element.type.state is always stub at this point, therefore we overwrite the stubs with concrete types if possible
+                    if (element.type.state === XsdVisualizer.Model.TypeState.Concrete)
+                        return;
+
+                    //overwrite the stubs with concrete types if possible
                     var typeName = element.type.name, concreteType = concreteTypeDictionary[typeName];
 
                     if (concreteType)
@@ -97,17 +102,17 @@ var XsdVisualizer;
                 var _this = this;
                 var $document = $($.parseXML(markup)), $schema = find($document, "xs:schema"), $rootElements = find($schema, "> xs:element"), $complexTypes = find($schema, "> xs:complexType");
 
-                var complexTypes = this.mapElements($complexTypes, function ($element) {
+                this.mapElements($complexTypes, function ($element) {
                     return _this.parseComplexType($element);
                 });
                 var elements = this.mapElements($rootElements, function ($element) {
                     return _this.parseElement($element);
                 });
                 var document = new XsdVisualizer.Model.Document();
-                document.types = complexTypes;
+                document.types = this.types;
                 document.elements = elements;
-                debugger;
                 this.fixUpReferences(document);
+                debugger;
                 return document;
             };
             return ModelBuilder;
