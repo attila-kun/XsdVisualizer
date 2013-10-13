@@ -22,6 +22,9 @@ var XsdVisualizer;
                 $.each(this.types, function (index, type) {
                     return type.accept(visitor);
                 });
+                $.each(this.elements, function (index, element) {
+                    return element.accept(visitor);
+                });
             };
             return Document;
         })();

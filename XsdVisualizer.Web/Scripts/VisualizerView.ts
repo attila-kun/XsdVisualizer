@@ -5,7 +5,7 @@ module XsdVisualizer {
     export class VisualizerView {
 		private $el: JQuery;
 
-		get $Element() {
+		$Element() {
 			return this.$el;
 		}
 

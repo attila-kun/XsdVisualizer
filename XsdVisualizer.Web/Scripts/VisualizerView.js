@@ -13,13 +13,9 @@ var XsdVisualizer;
                 opacity: .5
             });
         }
-        Object.defineProperty(VisualizerView.prototype, "$Element", {
-            get: function () {
-                return this.$el;
-            },
-            enumerable: true,
-            configurable: true
-        });
+        VisualizerView.prototype.$Element = function () {
+            return this.$el;
+        };
         return VisualizerView;
     })();
     XsdVisualizer.VisualizerView = VisualizerView;

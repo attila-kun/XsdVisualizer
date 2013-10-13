@@ -5,7 +5,7 @@ class Application {
 		var visualizerView = new XsdVisualizer.VisualizerView("hello");			
 		$(".VisualizerContainer")
 			.empty()
-			.append(visualizerView.$Element);
+			.append(visualizerView.$Element());
 	}
 
 	loadXsd(url: string) {

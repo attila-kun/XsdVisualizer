@@ -5,7 +5,7 @@ module XsdVisualizer.Parser {
 	//Useful for collecting all XsdVisualizer.Model.Element instances in a document.
 	class ElementCollector implements XsdVisualizer.Model.DocumentVisitor {		
 		private _elements: XsdVisualizer.Model.Element[] = [];
-		get elements() {
+		elements() {
 			return this._elements;
 		}		
 
@@ -33,7 +33,24 @@ module XsdVisualizer.Parser {
 		private parseElement($element: JQuery): XsdVisualizer.Model.Element {
 			var element = new XsdVisualizer.Model.Element();
 			element.name = $element.attr("name");
-			element.type = this.getTypeStub($element.attr("type"));
+			var typeName = $element.attr("type");
+
+			if (typeName)
+				element.type = this.getTypeStub(typeName);
+
+			var $complexType = find($element, "> xs:complexType");
+
+			if ($complexType.length > 0 && typeName)		
+				throw new Error("Element can't have both type attribute and nested complexType defined!");
+
+			if ($complexType.length > 1)
+				throw new Error("Element can't have more than one complexType child.");
+
+			if ($complexType.length == 1) {
+				var complexType = this.parseComplexType($complexType);
+				element.type = complexType;
+			}			
+
 			return element;
 		}
 
@@ -58,7 +75,7 @@ module XsdVisualizer.Parser {
 				elementCollector = new ElementCollector();
 
 			document.accept(elementCollector);
-			var elements = elementCollector.elements;
+			var elements = elementCollector.elements();
 
 			$.each(elements, (index, element) => {
 				//we assume that element.type.state is always stub at this point, therefore we overwrite the stubs with concrete types if possible				
@@ -73,14 +90,16 @@ module XsdVisualizer.Parser {
 		public parse(markup: string): XsdVisualizer.Model.Document {
 			var $document = $($.parseXML(markup)),
 				$schema = find($document, "xs:schema"),
-				$elements = find($schema, "xs:element"),
+				$rootElements = find($schema, "> xs:element"),
 				$complexTypes = find($schema, "> xs:complexType");				
 			
 			var complexTypes = this.mapElements($complexTypes, ($element) => this.parseComplexType($element));
+			var elements = this.mapElements($rootElements, $element => this.parseElement($element));
 			var document = new XsdVisualizer.Model.Document();
 			document.types = complexTypes;
-			document.elements = []
-			this.fixUpReferences(document);
+			document.elements = elements;
+			debugger;
+			this.fixUpReferences(document);			
 			return document;
 		}
 

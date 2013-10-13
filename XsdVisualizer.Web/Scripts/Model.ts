@@ -15,6 +15,7 @@ module XsdVisualizer.Model {
 		elements: Element[];
 		accept(visitor: XsdVisualizer.Model.DocumentVisitor) {
 			$.each(this.types, (index, type) => type.accept(visitor));
+			$.each(this.elements, (index, element) => element.accept(visitor));
 		}
 	}
 

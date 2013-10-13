@@ -7,13 +7,9 @@ var XsdVisualizer;
             function ElementCollector() {
                 this._elements = [];
             }
-            Object.defineProperty(ElementCollector.prototype, "elements", {
-                get: function () {
-                    return this._elements;
-                },
-                enumerable: true,
-                configurable: true
-            });
+            ElementCollector.prototype.elements = function () {
+                return this._elements;
+            };
 
             ElementCollector.prototype.visitElement = function (element) {
                 this._elements.push(element);
@@ -41,7 +37,24 @@ var XsdVisualizer;
             ModelBuilder.prototype.parseElement = function ($element) {
                 var element = new XsdVisualizer.Model.Element();
                 element.name = $element.attr("name");
-                element.type = this.getTypeStub($element.attr("type"));
+                var typeName = $element.attr("type");
+
+                if (typeName)
+                    element.type = this.getTypeStub(typeName);
+
+                var $complexType = find($element, "> xs:complexType");
+
+                if ($complexType.length > 0 && typeName)
+                    throw new Error("Element can't have both type attribute and nested complexType defined!");
+
+                if ($complexType.length > 1)
+                    throw new Error("Element can't have more than one complexType child.");
+
+                if ($complexType.length == 1) {
+                    var complexType = this.parseComplexType($complexType);
+                    element.type = complexType;
+                }
+
                 return element;
             };
 
@@ -69,7 +82,7 @@ var XsdVisualizer;
                 }), elementCollector = new ElementCollector();
 
                 document.accept(elementCollector);
-                var elements = elementCollector.elements;
+                var elements = elementCollector.elements();
 
                 $.each(elements, function (index, element) {
                     //we assume that element.type.state is always stub at this point, therefore we overwrite the stubs with concrete types if possible
@@ -82,14 +95,18 @@ var XsdVisualizer;
 
             ModelBuilder.prototype.parse = function (markup) {
                 var _this = this;
-                var $document = $($.parseXML(markup)), $schema = find($document, "xs:schema"), $elements = find($schema, "xs:element"), $complexTypes = find($schema, "> xs:complexType");
+                var $document = $($.parseXML(markup)), $schema = find($document, "xs:schema"), $rootElements = find($schema, "> xs:element"), $complexTypes = find($schema, "> xs:complexType");
 
                 var complexTypes = this.mapElements($complexTypes, function ($element) {
                     return _this.parseComplexType($element);
                 });
+                var elements = this.mapElements($rootElements, function ($element) {
+                    return _this.parseElement($element);
+                });
                 var document = new XsdVisualizer.Model.Document();
                 document.types = complexTypes;
-                document.elements = [];
+                document.elements = elements;
+                debugger;
                 this.fixUpReferences(document);
                 return document;
             };
