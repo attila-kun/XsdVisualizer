@@ -16,19 +16,11 @@ module XsdVisualizer.Parser {
 
 	class ModelBuilder {
 
-		private types: { [name: string]: XsdVisualizer.Model.Type; } = {};
-
 		private mapElements<T>($elements: JQuery, callback: (JQuery) => T): T[] {
 			var result = $elements.map(function (index, element) {
 				return callback($(element));
 			}).toArray();
 			return result;
-		}
-
-		private registerTypes(types: XsdVisualizer.Model.Type[]) {
-			$.each(types, (index, type) => {
-				this.types[type.name] = type;
-			});
 		}
 
 		private getTypeStub(typeName: string): XsdVisualizer.Model.Type {
@@ -57,10 +49,6 @@ module XsdVisualizer.Parser {
 			complexType.sequence = this.parseSequence(find($complexType, "xs:sequence"));
 			complexType.state = XsdVisualizer.Model.TypeState.Concrete;
 			return complexType;
-		}
-
-		private traverseDocument(document, callback) {
-
 		}
 
 		//Overwriting type stubs with concrete types wherever possible.

@@ -2,6 +2,7 @@ var XsdVisualizer;
 (function (XsdVisualizer) {
     ///<reference path="References.ts" />
     (function (Parser) {
+        //Useful for collecting all XsdVisualizer.Model.Element instances in a document.
         var ElementCollector = (function () {
             function ElementCollector() {
                 this._elements = [];
@@ -22,20 +23,12 @@ var XsdVisualizer;
 
         var ModelBuilder = (function () {
             function ModelBuilder() {
-                this.types = {};
             }
             ModelBuilder.prototype.mapElements = function ($elements, callback) {
                 var result = $elements.map(function (index, element) {
                     return callback($(element));
                 }).toArray();
                 return result;
-            };
-
-            ModelBuilder.prototype.registerTypes = function (types) {
-                var _this = this;
-                $.each(types, function (index, type) {
-                    _this.types[type.name] = type;
-                });
             };
 
             ModelBuilder.prototype.getTypeStub = function (typeName) {
@@ -69,9 +62,6 @@ var XsdVisualizer;
                 return complexType;
             };
 
-            ModelBuilder.prototype.traverseDocument = function (document, callback) {
-            };
-
             //Overwriting type stubs with concrete types wherever possible.
             ModelBuilder.prototype.fixUpReferences = function (document) {
                 var concreteTypes = document.types, concreteTypeDictionary = toDictionary(document.types, function (type) {
@@ -101,7 +91,6 @@ var XsdVisualizer;
                 document.types = complexTypes;
                 document.elements = [];
                 this.fixUpReferences(document);
-                debugger;
                 return document;
             };
             return ModelBuilder;
@@ -111,6 +100,8 @@ var XsdVisualizer;
             return $node.find(selector.replace(":", "\\:"));
         }
 
+        //Creates a hashmap out of the passed in elements array.
+        //The keys of the hashmap will be the array items' property values defined by keySelector.
         function toDictionary(elements, keySelector) {
             var dictionary = {};
             $.each(elements, function (index, element) {
