@@ -9,14 +9,26 @@ var XsdVisualizer;
                     "class": "VisualizerView"
                 });
                 var paper = Raphael(this.$el[0], 200, 200);
-                paper.rect(0, 0, 50, 50).attr({
-                    fill: "90-#333-#333",
-                    stroke: "none",
-                    opacity: .5
-                });
+                var paperGroup = new PaperGroup(paper, paper.group());
+
+                var currentGroup = paperGroup;
+                for (var i = 0; i < 10; i++) {
+                    currentGroup = currentGroup.newGroup();
+                    var offset = (i + 1) * 10;
+                    var rect = currentGroup.rect(offset, offset, 50, 50);
+                    this.setRectAttr(rect);
+                }
             }
             VisualizerView.prototype.$Element = function () {
                 return this.$el;
+            };
+
+            VisualizerView.prototype.setRectAttr = function (rect) {
+                rect.attr({
+                    fill: "blue",
+                    stroke: "none",
+                    opacity: .5
+                });
             };
             return VisualizerView;
         })();

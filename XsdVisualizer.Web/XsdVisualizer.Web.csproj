@@ -127,12 +127,16 @@
     <TypeScriptCompile Include="Scripts\Drawing\ElementView.ts" />
     <Content Include="Scripts\Drawing\DocumentView.js" />
     <Content Include="Scripts\Drawing\ElementView.js" />
+    <TypeScriptCompile Include="Scripts\Drawing\raphael.group.d.ts" />
+    <TypeScriptCompile Include="Scripts\Drawing\PaperGroup.ts" />
+    <Content Include="Scripts\Drawing\PaperGroup.js" />
     <Content Include="Scripts\Drawing\VisualizerView.js" />
     <Content Include="Scripts\Model.js" />
     <Content Include="Scripts\Parser.js" />
     <Content Include="Scripts\References.js" />
     <Content Include="Scripts\Thirdparty\jquery.d.ts" />
     <Content Include="Scripts\Thirdparty\raphael.d.ts" />
+    <Content Include="Scripts\Thirdparty\raphael.group.js" />
     <Content Include="Scripts\Thirdparty\raphael.js" />
     <TypeScriptCompile Include="Scripts\References.ts" />
     <TypeScriptCompile Include="Scripts\Model.ts" />
