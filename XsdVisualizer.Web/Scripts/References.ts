@@ -4,3 +4,4 @@
 ///<reference path="Thirdparty/raphael.d.ts" />
 ///<reference path="Model.ts" />
 ///<reference path="Parser.ts" />
+///<reference path="XsdVisualizer.ts" />

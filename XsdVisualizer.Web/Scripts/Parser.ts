@@ -106,7 +106,6 @@ module XsdVisualizer.Parser {
 			document.types = this.types;
 			document.elements = elements;
 			this.fixUpReferences(document);
-			debugger;
 			return document;
 		}
 

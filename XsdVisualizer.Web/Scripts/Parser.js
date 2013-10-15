@@ -112,7 +112,6 @@ var XsdVisualizer;
                 document.types = this.types;
                 document.elements = elements;
                 this.fixUpReferences(document);
-                debugger;
                 return document;
             };
             return ModelBuilder;

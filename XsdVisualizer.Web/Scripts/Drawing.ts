@@ -1,8 +1,8 @@
 ///<reference path="References.ts" />
 
-module XsdVisualizer {
-    
-    export class VisualizerView {
+module XsdVisualizer.Drawing {
+
+	export class VisualizerView {
 		private $el: JQuery;
 
 		$Element() {
@@ -20,6 +20,6 @@ module XsdVisualizer {
 				opacity: .5
 			});
 		}
-    }
+	}
 
 }

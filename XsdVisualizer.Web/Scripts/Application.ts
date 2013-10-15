@@ -2,7 +2,7 @@
 
 class Application {
 	constructor() {
-		var visualizerView = new XsdVisualizer.VisualizerView("hello");			
+		var visualizerView = new XsdVisualizer.Drawing.VisualizerView("hello");			
 		$(".VisualizerContainer")
 			.empty()
 			.append(visualizerView.$Element());
@@ -11,7 +11,7 @@ class Application {
 	loadXsd(url: string) {
 		$.get(url, null, null, "text")
 			.then(function (response) {
-				XsdVisualizer.Parser.parse(response);
+				XsdVisualizer.visualize(response);
 			});				
 	}
 }

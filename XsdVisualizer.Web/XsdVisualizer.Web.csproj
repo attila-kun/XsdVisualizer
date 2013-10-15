@@ -119,10 +119,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
-    <TypeScriptCompile Include="Scripts\VisualizerView.ts" />
     <TypeScriptCompile Include="Scripts\Application.ts" />
     <Content Include="Scripts\Application.js" />
     <TypeScriptCompile Include="Scripts\Parser.ts" />
+    <TypeScriptCompile Include="Scripts\Drawing.ts" />
+    <Content Include="Scripts\Drawing.js" />
     <Content Include="Scripts\Model.js" />
     <Content Include="Scripts\Parser.js" />
     <Content Include="Scripts\References.js" />
@@ -130,8 +131,9 @@
     <Content Include="Scripts\Thirdparty\raphael.d.ts" />
     <Content Include="Scripts\Thirdparty\raphael.js" />
     <TypeScriptCompile Include="Scripts\References.ts" />
-    <Content Include="Scripts\VisualizerView.js" />
     <TypeScriptCompile Include="Scripts\Model.ts" />
+    <TypeScriptCompile Include="Scripts\XsdVisualizer.ts" />
+    <Content Include="Scripts\XsdVisualizer.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
