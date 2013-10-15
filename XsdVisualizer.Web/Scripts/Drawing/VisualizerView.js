@@ -1,9 +1,10 @@
 var XsdVisualizer;
 (function (XsdVisualizer) {
-    ///<reference path="References.ts" />
+    ///<reference path="../References.ts" />
     (function (Drawing) {
         var VisualizerView = (function () {
-            function VisualizerView(markup) {
+            function VisualizerView(document) {
+                this.document = document;
                 this.$el = $("<div></div>", {
                     "class": "VisualizerView"
                 });

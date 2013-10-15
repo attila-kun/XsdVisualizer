@@ -1,17 +1,19 @@
 ///<reference path="References.ts" />
 
 class Application {
-	constructor() {
-		var visualizerView = new XsdVisualizer.Drawing.VisualizerView("hello");			
-		$(".VisualizerContainer")
-			.empty()
-			.append(visualizerView.$Element());
+	private $visualizerContainer: JQuery;
+
+	constructor() {		
+		this.$visualizerContainer = $(".VisualizerContainer");
 	}
 
 	loadXsd(url: string) {
 		$.get(url, null, null, "text")
-			.then(function (response) {
-				XsdVisualizer.visualize(response);
+			.then(response => {				
+				var visualizerView = XsdVisualizer.visualize(response);
+				this.$visualizerContainer
+					.empty()
+					.append(visualizerView.$Element());
 			});				
 	}
 }

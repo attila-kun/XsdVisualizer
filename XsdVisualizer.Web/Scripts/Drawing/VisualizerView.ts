@@ -1,6 +1,6 @@
-///<reference path="References.ts" />
+///<reference path="../References.ts" />
 
-module XsdVisualizer.Drawing {
+module XsdVisualizer.Drawing {	
 
 	export class VisualizerView {
 		private $el: JQuery;
@@ -9,7 +9,7 @@ module XsdVisualizer.Drawing {
 			return this.$el;
 		}
 
-		constructor(markup: string) {
+		constructor(private document: XsdVisualizer.Model.Document) {
 			this.$el = $("<div></div>", {
 				"class": "VisualizerView"
 			});

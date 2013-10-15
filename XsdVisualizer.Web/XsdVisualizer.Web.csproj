@@ -122,8 +122,12 @@
     <TypeScriptCompile Include="Scripts\Application.ts" />
     <Content Include="Scripts\Application.js" />
     <TypeScriptCompile Include="Scripts\Parser.ts" />
-    <TypeScriptCompile Include="Scripts\Drawing.ts" />
-    <Content Include="Scripts\Drawing.js" />
+    <TypeScriptCompile Include="Scripts\Drawing\VisualizerView.ts" />
+    <TypeScriptCompile Include="Scripts\Drawing\DocumentView.ts" />
+    <TypeScriptCompile Include="Scripts\Drawing\ElementView.ts" />
+    <Content Include="Scripts\Drawing\DocumentView.js" />
+    <Content Include="Scripts\Drawing\ElementView.js" />
+    <Content Include="Scripts\Drawing\VisualizerView.js" />
     <Content Include="Scripts\Model.js" />
     <Content Include="Scripts\Parser.js" />
     <Content Include="Scripts\References.js" />

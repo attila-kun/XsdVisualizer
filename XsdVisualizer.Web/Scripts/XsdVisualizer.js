@@ -3,7 +3,7 @@ var XsdVisualizer;
 (function (XsdVisualizer) {
     function visualize(markup) {
         var document = XsdVisualizer.Parser.parse(markup);
-        debugger;
+        return new XsdVisualizer.Drawing.VisualizerView(document);
     }
     XsdVisualizer.visualize = visualize;
 })(XsdVisualizer || (XsdVisualizer = {}));
