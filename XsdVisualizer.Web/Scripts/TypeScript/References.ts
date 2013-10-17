@@ -3,6 +3,7 @@
 ///<reference path="../Thirdparty/jquery.d.ts" />
 ///<reference path="../Thirdparty/raphael.d.ts" />
 ///<reference path="../Thirdparty/raphael.group.d.ts" />
+///<reference path="../Thirdparty/underscore.d.ts" />
 ///<reference path="Model.ts" />
 ///<reference path="Parser.ts" />
 ///<reference path="Drawing/VisualizerView.ts" />

@@ -133,8 +133,12 @@
     <TypeScriptCompile Include="Scripts\TypeScript\References.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Model.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\XsdVisualizer.ts" />
+    <Content Include="Scripts\Thirdparty\underscore.d.ts" />
+    <Content Include="Scripts\Thirdparty\underscore.js" />
     <Content Include="Scripts\TypeScript\.gitignore" />
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\ComplexTypeView.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Drawing\IDrawable.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Drawing\TypeView.ts" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
