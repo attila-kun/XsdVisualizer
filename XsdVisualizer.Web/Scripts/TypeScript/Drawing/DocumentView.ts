@@ -9,9 +9,7 @@ module XsdVisualizer.Drawing {
 
 		}
 
-		redraw() {			
-			this.paperGroup.rect(0, 0, 100, 100);
-			
+		redraw() {
 			$.each(this.document.elements, (index, element) => {
 				var elementView = new XsdVisualizer.Drawing.ElementView(this.paperGroup.newGroup(), element);
 				elementView.redraw();

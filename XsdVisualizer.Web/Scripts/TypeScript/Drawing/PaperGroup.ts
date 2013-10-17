@@ -20,6 +20,10 @@ module XsdVisualizer.Drawing {
 			return element;
 		}
 
+		translate(x: number, y: number) {
+			return this.group.translate(x, y);
+		}
+
 		rect(x: number, y: number, width: number, height: number, r?: number): RaphaelElement {
 			return this.createRaphaelElement(paper => paper.rect(x, y, width, height, r));
 		}

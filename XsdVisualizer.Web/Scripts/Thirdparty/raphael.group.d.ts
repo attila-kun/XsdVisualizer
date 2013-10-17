@@ -3,5 +3,6 @@ interface RaphaelPaper {
 }
 
 interface RaphaelGroup {
-	push(element: RaphaelElement): void;
+	push(element: RaphaelElement): RaphaelGroup;
+	translate(newTranslateX: number, newTranslateY: number): RaphaelGroup;
 }

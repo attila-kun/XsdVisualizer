@@ -13,7 +13,7 @@ module XsdVisualizer.Drawing {
 			this.$el = $("<div></div>", {
 				"class": "VisualizerView"
 			});
-			var paper: RaphaelPaper = Raphael(this.$el[0], 200, 200);
+			var paper: RaphaelPaper = Raphael(this.$el[0], 700, 700);
 			var paperGroup = new PaperGroup(paper, paper.group());									
 			var documentView = new XsdVisualizer.Drawing.DocumentView(paperGroup, document);
 			documentView.redraw();

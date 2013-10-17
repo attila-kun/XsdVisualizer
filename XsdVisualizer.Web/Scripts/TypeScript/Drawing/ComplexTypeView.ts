@@ -8,13 +8,13 @@ module XsdVisualizer.Drawing {
 		}
 
 		redraw() {
-			this.paperGroup.rect(0, 0, 100, 100);
-
 			if (this.complexType.sequence == null)
 				return;
 
 			$.each(this.complexType.sequence.elements, (index, element) => {
-				var elementView = new XsdVisualizer.Drawing.ElementView(this.paperGroup.newGroup(), element);
+				var newGroup = this.paperGroup.newGroup();
+				newGroup.translate(0, index * 100);
+				var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);
 				elementView.redraw();
 			});
 		}
