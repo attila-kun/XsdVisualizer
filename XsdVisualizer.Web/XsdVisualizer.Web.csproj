@@ -134,6 +134,7 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Model.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\XsdVisualizer.ts" />
     <Content Include="Scripts\TypeScript\.gitignore" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Drawing\ComplexTypeView.ts" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

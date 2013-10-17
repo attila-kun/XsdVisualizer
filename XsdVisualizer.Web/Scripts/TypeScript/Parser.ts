@@ -96,7 +96,7 @@ module XsdVisualizer.Parser {
 
 		public parse(markup: string): XsdVisualizer.Model.Document {
 			var $document = $($.parseXML(markup)),
-				$schema = find($document, "xs:schema"),
+				$schema = find($document, "xs:schema, schema"), // ", schema" is needed for Chrome (see http://stackoverflow.com/questions/15776529/jquery-ajax-xml-find-works-in-ie-but-not-chrome)
 				$rootElements = find($schema, "> xs:element"),
 				$complexTypes = find($schema, "> xs:complexType");				
 			
