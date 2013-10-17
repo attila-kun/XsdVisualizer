@@ -120,20 +120,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Scripts\Application.ts" />
-    <Content Include="Scripts\Application.js" />
     <TypeScriptCompile Include="Scripts\Parser.ts" />
     <TypeScriptCompile Include="Scripts\Drawing\VisualizerView.ts" />
     <TypeScriptCompile Include="Scripts\Drawing\DocumentView.ts" />
     <TypeScriptCompile Include="Scripts\Drawing\ElementView.ts" />
-    <Content Include="Scripts\Drawing\DocumentView.js" />
-    <Content Include="Scripts\Drawing\ElementView.js" />
     <TypeScriptCompile Include="Scripts\Drawing\raphael.group.d.ts" />
     <TypeScriptCompile Include="Scripts\Drawing\PaperGroup.ts" />
-    <Content Include="Scripts\Drawing\PaperGroup.js" />
-    <Content Include="Scripts\Drawing\VisualizerView.js" />
-    <Content Include="Scripts\Model.js" />
-    <Content Include="Scripts\Parser.js" />
-    <Content Include="Scripts\References.js" />
     <Content Include="Scripts\Thirdparty\jquery.d.ts" />
     <Content Include="Scripts\Thirdparty\raphael.d.ts" />
     <Content Include="Scripts\Thirdparty\raphael.group.js" />
@@ -141,7 +133,6 @@
     <TypeScriptCompile Include="Scripts\References.ts" />
     <TypeScriptCompile Include="Scripts\Model.ts" />
     <TypeScriptCompile Include="Scripts\XsdVisualizer.ts" />
-    <Content Include="Scripts\XsdVisualizer.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
