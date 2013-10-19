@@ -8,9 +8,8 @@ module XsdVisualizer.Drawing {
 			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
 			private element: XsdVisualizer.Model.Element
 			) {
-				this.paperGroup.text(50, 50, this.element.name);
+				this.paperGroup.text(50, 10, this.element.name);
 				var newGroup = this.paperGroup.newGroup();
-				newGroup.translate(100, 0);
 				this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <any>this.element.type); //TODO: fix cast
 		}
 
@@ -18,11 +17,19 @@ module XsdVisualizer.Drawing {
 
 		}
 
-		getSize(): Size {
-			return this.typeView.getSize();
+		translate(x, y) {
+			this.paperGroup.translate(x, y);
 		}
 
-		realign() {			
+		getBBox(): NativeBBox {			
+			var bbox = this.paperGroup.getBBox();
+			console.log(this.paperGroup.getNode(), bbox);
+			return bbox;
+		}
+
+		realign() {
+			this.typeView.realign();
+			this.typeView.translate(100, 0);
 		}
 	}
 }

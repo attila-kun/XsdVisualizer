@@ -36,5 +36,13 @@ module XsdVisualizer.Drawing {
 				return textElement;
 			});
 		}
+
+		getBBox(): NativeBBox {
+			return (<any>this.group.node).getBBox();
+		}
+
+		getNode() {
+			return this.group.node;
+		}
 	}
 }

@@ -11,29 +11,27 @@ module XsdVisualizer.Drawing {
 
 				$.each(this.complexType.sequence.elements, (index, element) => {
 					var newGroup = this.paperGroup.newGroup();
-					newGroup.translate(0, index * 100);
-					var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);				
+					var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);		
+					this.elementViews.push(elementView);		
 				});
 		}
 
-		getSize(): Size {			
-			var elementSizes = _.map(this.elementViews, elementView => elementView.getSize()),
-				sizeSum = _.reduce(
-					elementSizes,
-					(acc: Size, curr: Size) => {
-						if (curr.width > acc.width) {
-							acc.width = curr.width; //keep maximal width
-						}
-						acc.height += curr.height; //elements will be drawn under each other, so we sum their heights
-						return acc;
-					},
-					new XsdVisualizer.Drawing.Size(0, 0));
-
-			return sizeSum;
+		getBBox(): NativeBBox {			
+			return this.paperGroup.getBBox();
 		}
 
 		realign() {
-					
+			var currentY = 0;
+			_.each(this.elementViews, elementView => {
+				elementView.realign();
+				var bbox = elementView.getBBox();				
+				elementView.translate(0, currentY);
+				currentY += bbox.height;
+			});
+		}
+
+		translate(x, y) {
+			this.paperGroup.translate(x, y);
 		}
 	}
 }

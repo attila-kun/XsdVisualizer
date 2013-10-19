@@ -1,13 +1,15 @@
 module XsdVisualizer.Drawing {
 
-	export class Size {
-		constructor(public width: number, public height: number) {
-
-		}
+	export interface NativeBBox {
+		x: number;
+		y: number;
+		width: number;
+		height: number;
 	}
 
 	export interface IDrawable {
-		getSize(): Size
+		getBBox(): NativeBBox
 		realign(): void
+		translate(x, y): void
 	}
 }
