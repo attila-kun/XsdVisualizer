@@ -8,9 +8,17 @@ module XsdVisualizer.Drawing {
 			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
 			private element: XsdVisualizer.Model.Element
 			) {
-				this.paperGroup.text(50, 10, this.element.name);
+				var rect = this.paperGroup.rect(0, 0, 100, 20);
+				rect.attr({"fill": "white"}); //needed to detect click inside the shape
+				rect.click(() => this.onClick());
+				var text = this.paperGroup.text(50, 13, this.element.name);
+				text.click(() => this.onClick());
 				var newGroup = this.paperGroup.newGroup();
 				this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <any>this.element.type); //TODO: fix cast
+		}
+
+		private onClick() {	
+			this.typeView.toggleVisibility();
 		}
 
 		translate(x, y) {
@@ -25,7 +33,7 @@ module XsdVisualizer.Drawing {
 
 		realign() {
 			this.typeView.realign();
-			this.typeView.translate(100, 0);
+			this.typeView.translate(120, 0);
 		}
 	}
 }

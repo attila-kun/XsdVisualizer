@@ -1,11 +1,13 @@
 module XsdVisualizer.Drawing {
-	export class ComplexTypeView implements TypeView {
+	export class ComplexTypeView extends TypeView {
 		private elementViews: XsdVisualizer.Drawing.ElementView[] = [];		
 
 		constructor(
-			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
+			paperGroup: XsdVisualizer.Drawing.PaperGroup,
 			private complexType: XsdVisualizer.Model.ComplexType
 			) {
+				super(paperGroup);
+
 				if (this.complexType.sequence == null)
 					return;
 
@@ -26,7 +28,7 @@ module XsdVisualizer.Drawing {
 				elementView.realign();
 				var bbox = elementView.getBBox();				
 				elementView.translate(0, currentY);
-				currentY += bbox.height;
+				currentY += bbox.height + 20;
 			});
 		}
 
