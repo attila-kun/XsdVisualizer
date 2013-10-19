@@ -14,6 +14,8 @@ class Application {
 				this.$visualizerContainer
 					.empty()
 					.append(visualizerView.$Element());
+
+				visualizerView.realign(); //must be called after visualizerView became part of the DOM
 			});				
 	}
 }

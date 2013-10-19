@@ -13,10 +13,6 @@ module XsdVisualizer.Drawing {
 				this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <any>this.element.type); //TODO: fix cast
 		}
 
-		redraw() {
-
-		}
-
 		translate(x, y) {
 			this.paperGroup.translate(x, y);
 		}

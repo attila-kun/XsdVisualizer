@@ -2,21 +2,22 @@
 
 module XsdVisualizer.Drawing {
 	export class DocumentView {
+		private elementViews: XsdVisualizer.Drawing.ElementView[] = [];
+
 		constructor(
 			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
 			private document: XsdVisualizer.Model.Document
 		) {
-
-		}
-
-		redraw() {
 			$.each(this.document.elements, (index, element) => {
 				var elementView = new XsdVisualizer.Drawing.ElementView(this.paperGroup.newGroup(), element);
-				elementView.redraw();
-				//TODO: must be called after SVG became part of the DOM
-				setTimeout(() => {
-					elementView.realign();
-				}, 0);
+				this.elementViews.push(elementView);
+			});
+		}
+
+		realign() {
+			//TODO: positioning of elementViews
+			_.each(this.elementViews, elementView => {
+				elementView.realign();
 			});
 		}
 	}

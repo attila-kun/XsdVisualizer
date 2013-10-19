@@ -4,6 +4,7 @@ module XsdVisualizer.Drawing {
 
 	export class VisualizerView {
 		private $el: JQuery;
+		private documentView: XsdVisualizer.Drawing.DocumentView;
 
 		$Element() {
 			return this.$el;
@@ -15,8 +16,11 @@ module XsdVisualizer.Drawing {
 			});
 			var paper: RaphaelPaper = Raphael(this.$el[0], 700, 700);
 			var paperGroup = new PaperGroup(paper, paper.group());									
-			var documentView = new XsdVisualizer.Drawing.DocumentView(paperGroup, document);
-			documentView.redraw();
+			this.documentView = new XsdVisualizer.Drawing.DocumentView(paperGroup, document);
+		}
+
+		realign() {
+			this.documentView.realign();
 		}
 	}
 
