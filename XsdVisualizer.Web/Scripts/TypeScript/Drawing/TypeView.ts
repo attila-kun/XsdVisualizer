@@ -7,6 +7,7 @@ module XsdVisualizer.Drawing {
 		constructor(paperGroup: XsdVisualizer.Drawing.PaperGroup) {
 			super();
 			this.paperGroup = paperGroup;
+			this.hide();
 		}
 
 		getPaperGroup() {

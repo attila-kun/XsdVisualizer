@@ -14,11 +14,18 @@ module XsdVisualizer.Drawing {
 				rect.click(() => this.handleClick());
 				var text = this.paperGroup.text(50, 13, this.element.name);
 				text.click(() => this.handleClick());
-				var newGroup = this.paperGroup.newGroup();
-				this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <any>this.element.type); //TODO: fix cast
 		}
 
-		private handleClick() {	
+		private lazyRenderTypeView() {
+			if (this.typeView != null)
+				return;
+
+			var newGroup = this.paperGroup.newGroup();
+			this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <any>this.element.type); //TODO: fix cast
+		}
+
+		private handleClick() {			
+			this.lazyRenderTypeView();
 			this.typeView.toggleVisibility();
 			//if an element is expanded of collapsed, then we need to propagate the change upwards, because possible height change may affect the position of other elements
 			this.paperGroup.$getNode().trigger("ExpandOrCollapse");
@@ -34,6 +41,9 @@ module XsdVisualizer.Drawing {
 		}
 
 		realign() {
+			if (this.typeView == null)
+				return;
+
 			this.typeView.realign();
 			this.typeView.translate(120, 0);
 		}

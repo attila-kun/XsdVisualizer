@@ -4,7 +4,8 @@
 <xs:complexType name="movie">
   <xs:sequence>
     <xs:element name="id" type="xs:positiveInteger"/>
-    <xs:element name="title" type="xs:string"/>	    
+    <xs:element name="title" type="xs:string"/>
+    <xs:element name="ticket2" type="ticket"/> <!--recursive reference-->
   </xs:sequence>    
 </xs:complexType>
 
@@ -21,6 +22,14 @@
       <xs:element name="customername" type="xs:string"/>
       <xs:element name="ticket" type="ticket" minOccurs="1" maxOccurs="unbounded"/>
     </xs:sequence>    
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="screening2">
+  <xs:complexType>
+    <xs:sequence>      
+      <xs:element name="ticket" type="ticket" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
   </xs:complexType>
 </xs:element>
 
