@@ -1,9 +1,6 @@
 module XsdVisualizer.Drawing {
-	export interface ITypeView extends IDrawable {
-		toggleVisibility(): void;
-	}
 
-	export class TypeView<TConcrete> extends Drawable<TConcrete> implements ITypeView {
+	export class TypeView extends Drawable {
 
 		private paperGroup: XsdVisualizer.Drawing.PaperGroup;
 
@@ -30,15 +27,15 @@ module XsdVisualizer.Drawing {
 		}
 
 		hide() {
-			$(this.paperGroup.getNode()).hide();
+			this.paperGroup.$getNode().hide();
 		}
 
 		show() {
-			$(this.paperGroup.getNode()).show();
+			this.paperGroup.$getNode().show();
 		}
 
 		toggleVisibility() {
-			$(this.paperGroup.getNode()).toggle();
+			this.paperGroup.$getNode().toggle();
 		}
 	}
 }

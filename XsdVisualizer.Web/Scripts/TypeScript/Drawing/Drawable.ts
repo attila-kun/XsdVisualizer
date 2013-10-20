@@ -7,31 +7,23 @@ module XsdVisualizer.Drawing {
 		height: number;
 	}
 
-	export interface EventHandler<T> {
-		(view: T): void;
+	export interface EventHandler {
+		(view: Drawable): void;
 	}
 
-	export interface IDrawable {
-		getBBox(): void;
-		realign(): void;
-		translate(x, y): void;
-	}
-
-	export class Drawable<TConcrete> {
-		getBBox() { throw new Error(); }
+	export class Drawable {
+		getBBox(): NativeBBox { throw new Error(); }
 		realign() { throw new Error(); }
-		translate(x, y) { throw new Error(); }
+		translate(x: number, y: number) { throw new Error(); }
 
-		private events: { [key: string]: EventHandler<TConcrete>[] } = {};
-
-		on(eventName: string, eventHandler: EventHandler<TConcrete>) {
-			this.events[eventName] = this.events[eventName] || [];
-			this.events[eventName].push(eventHandler);
-		}
-
-		trigger(eventName) {
-			var eventHandlers: EventHandler<TConcrete>[] = this.events[eventName] || [];
-			_.each(eventHandlers, eventHandler => eventHandler(this));
+		realignElements(elements: Drawable[]) {
+			var currentY = 0;
+			_.each(elements, elementView => {
+				elementView.realign();
+				var bbox = elementView.getBBox();
+				elementView.translate(0, currentY);
+				currentY += bbox.height + 20;
+			});
 		}
 	}
 }

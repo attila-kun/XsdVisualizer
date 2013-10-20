@@ -1,8 +1,8 @@
 ///<reference path="../References.ts" />
 
 module XsdVisualizer.Drawing {
-	export class ElementView extends Drawable<ElementView> {
-		private typeView: XsdVisualizer.Drawing.ITypeView;
+	export class ElementView extends Drawable {
+		private typeView: XsdVisualizer.Drawing.TypeView;
 
 		constructor(
 			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
@@ -20,6 +20,8 @@ module XsdVisualizer.Drawing {
 
 		private handleClick() {	
 			this.typeView.toggleVisibility();
+			//if an element is expanded of collapsed, then we need to propagate the change upwards, because possible height change may affect the position of other elements
+			this.paperGroup.$getNode().trigger("ExpandOrCollapse");
 		}
 
 		translate(x, y) {
@@ -28,7 +30,6 @@ module XsdVisualizer.Drawing {
 
 		getBBox(): NativeBBox {			
 			var bbox = this.paperGroup.getBBox();
-			console.log(this.paperGroup.getNode(), bbox);
 			return bbox;
 		}
 

@@ -44,5 +44,9 @@ module XsdVisualizer.Drawing {
 		getNode() {
 			return this.group.node;
 		}
+
+		$getNode() {
+			return $(this.getNode());
+		}
 	}
 }

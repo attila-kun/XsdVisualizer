@@ -1,5 +1,5 @@
 module XsdVisualizer.Drawing {
-	export class ComplexTypeView extends TypeView<ComplexTypeView> {
+	export class ComplexTypeView extends TypeView {
 		private elementViews: XsdVisualizer.Drawing.ElementView[] = [];		
 
 		constructor(
@@ -13,7 +13,7 @@ module XsdVisualizer.Drawing {
 
 				$.each(this.complexType.sequence.elements, (index, element) => {
 					var newGroup = this.getPaperGroup().newGroup();
-					var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);		
+					var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);
 					this.elementViews.push(elementView);		
 				});
 		}
@@ -23,13 +23,7 @@ module XsdVisualizer.Drawing {
 		}
 
 		realign() {
-			var currentY = 0;
-			_.each(this.elementViews, elementView => {
-				elementView.realign();
-				var bbox = elementView.getBBox();				
-				elementView.translate(0, currentY);
-				currentY += bbox.height + 20;
-			});
+			this.realignElements(this.elementViews);
 		}
 
 		translate(x, y) {
