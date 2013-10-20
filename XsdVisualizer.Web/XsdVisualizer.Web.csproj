@@ -179,7 +179,7 @@
   </Target>
   <Target Name="TypeScriptCompile" BeforeTargets="Build">
     <Message Text="Compiling TypeScript files" />
-    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\tsc&quot; -target ES5 @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
+    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>

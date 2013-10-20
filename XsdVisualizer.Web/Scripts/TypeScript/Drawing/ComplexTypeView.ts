@@ -12,14 +12,14 @@ module XsdVisualizer.Drawing {
 					return;
 
 				$.each(this.complexType.sequence.elements, (index, element) => {
-					var newGroup = this.paperGroup.newGroup();
+					var newGroup = this.getPaperGroup().newGroup();
 					var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);		
 					this.elementViews.push(elementView);		
 				});
 		}
 
 		getBBox(): NativeBBox {			
-			return this.paperGroup.getBBox();
+			return this.getPaperGroup().getBBox();
 		}
 
 		realign() {
@@ -33,7 +33,7 @@ module XsdVisualizer.Drawing {
 		}
 
 		translate(x, y) {
-			this.paperGroup.translate(x, y);
+			this.getPaperGroup().translate(x, y);
 		}
 	}
 }

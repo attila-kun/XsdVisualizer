@@ -1,12 +1,14 @@
 module XsdVisualizer.Drawing {
 	export class TypeView implements IDrawable {
 
-		private isVisible: boolean = true;
+		private paperGroup: XsdVisualizer.Drawing.PaperGroup;
 
-		constructor(
-			//TODO: paperGroup should provide readonly access
-			public paperGroup: XsdVisualizer.Drawing.PaperGroup) {
+		constructor(paperGroup: XsdVisualizer.Drawing.PaperGroup) {
+			this.paperGroup = paperGroup;
+		}
 
+		getPaperGroup() {
+			return this.paperGroup;
 		}
 
 		getBBox(): XsdVisualizer.Drawing.NativeBBox {
@@ -32,7 +34,6 @@ module XsdVisualizer.Drawing {
 
 		toggleVisibility() {
 			$(this.paperGroup.getNode()).toggle();
-			this.isVisible = !this.isVisible;
 		}
 	}
 }
