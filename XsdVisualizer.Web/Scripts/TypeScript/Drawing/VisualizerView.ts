@@ -16,7 +16,7 @@ module XsdVisualizer.Drawing {
 			});
 			var paper: RaphaelPaper = Raphael(this.$el[0], 700, 700);
 			var paperGroup = new PaperGroup(paper, paper.group());									
-			this.documentView = new XsdVisualizer.Drawing.DocumentView(paperGroup, document);
+			this.documentView = new XsdVisualizer.Drawing.DocumentView(paper, paperGroup, document);
 		}
 
 		realign() {

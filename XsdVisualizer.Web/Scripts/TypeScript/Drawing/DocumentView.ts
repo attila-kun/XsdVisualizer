@@ -5,6 +5,7 @@ module XsdVisualizer.Drawing {
 		private elementViews: XsdVisualizer.Drawing.ElementView[] = [];
 
 		constructor(
+			private paper: RaphaelPaper,
 			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
 			private document: XsdVisualizer.Model.Document
 			) {
@@ -16,8 +17,13 @@ module XsdVisualizer.Drawing {
 				this.paperGroup.$getNode().on("ExpandOrCollapse", () => this.realign());
 		}		
 
-		realign() {			
+		realign() {
 			this.realignElements(this.elementViews);
+
+			//realigning elements may have caused the whole drawing area to shrink or expand, therefore we need to resize the paper
+			var bbox = this.paperGroup.getBBox();
+			var extraSpacing = 20; //without this, some strange artifacts were visible at the SVG rects' edges
+			this.paper.setSize(bbox.width + extraSpacing, bbox.height + extraSpacing);
 		}
 	}
 }
