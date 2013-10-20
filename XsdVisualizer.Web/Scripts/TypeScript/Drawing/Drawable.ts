@@ -7,9 +7,9 @@ module XsdVisualizer.Drawing {
 		height: number;
 	}
 
-	export interface IDrawable {
-		getBBox(): NativeBBox
-		realign(): void
-		translate(x, y): void
+	export class Drawable {
+		getBBox() { throw new Error(); }
+		realign() { throw new Error(); }
+		translate(x, y) { throw new Error(); }
 	}
 }

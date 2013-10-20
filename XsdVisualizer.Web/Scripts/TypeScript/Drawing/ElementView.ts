@@ -1,13 +1,14 @@
 ///<reference path="../References.ts" />
 
 module XsdVisualizer.Drawing {
-	export class ElementView implements IDrawable {
+	export class ElementView extends Drawable {
 		private typeView: XsdVisualizer.Drawing.TypeView;
 
 		constructor(
 			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
 			private element: XsdVisualizer.Model.Element
 			) {
+				super();
 				var rect = this.paperGroup.rect(0, 0, 100, 20);
 				rect.attr({"fill": "white"}); //needed to detect click inside the shape
 				rect.click(() => this.onClick());
