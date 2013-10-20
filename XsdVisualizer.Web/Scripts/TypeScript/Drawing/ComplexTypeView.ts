@@ -1,5 +1,5 @@
 module XsdVisualizer.Drawing {
-	export class ComplexTypeView extends TypeView {
+	export class ComplexTypeView extends TypeView<ComplexTypeView> {
 		private elementViews: XsdVisualizer.Drawing.ElementView[] = [];		
 
 		constructor(

@@ -1,8 +1,8 @@
 ///<reference path="../References.ts" />
 
 module XsdVisualizer.Drawing {
-	export class ElementView extends Drawable {
-		private typeView: XsdVisualizer.Drawing.TypeView;
+	export class ElementView extends Drawable<ElementView> {
+		private typeView: XsdVisualizer.Drawing.ITypeView;
 
 		constructor(
 			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
@@ -11,14 +11,14 @@ module XsdVisualizer.Drawing {
 				super();
 				var rect = this.paperGroup.rect(0, 0, 100, 20);
 				rect.attr({"fill": "white"}); //needed to detect click inside the shape
-				rect.click(() => this.onClick());
+				rect.click(() => this.handleClick());
 				var text = this.paperGroup.text(50, 13, this.element.name);
-				text.click(() => this.onClick());
+				text.click(() => this.handleClick());
 				var newGroup = this.paperGroup.newGroup();
 				this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <any>this.element.type); //TODO: fix cast
 		}
 
-		private onClick() {	
+		private handleClick() {	
 			this.typeView.toggleVisibility();
 		}
 

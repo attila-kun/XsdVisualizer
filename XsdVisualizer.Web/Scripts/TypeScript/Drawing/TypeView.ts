@@ -1,5 +1,9 @@
 module XsdVisualizer.Drawing {
-	export class TypeView extends Drawable {
+	export interface ITypeView extends IDrawable {
+		toggleVisibility(): void;
+	}
+
+	export class TypeView<TConcrete> extends Drawable<TConcrete> implements ITypeView {
 
 		private paperGroup: XsdVisualizer.Drawing.PaperGroup;
 
