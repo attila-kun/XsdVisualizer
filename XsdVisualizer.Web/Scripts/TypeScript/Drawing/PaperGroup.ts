@@ -37,8 +37,19 @@ module XsdVisualizer.Drawing {
 			});
 		}
 
-		getBBox(): NativeBBox {
-			return (<any>this.group.node).getBBox();
+		getBBox(): NativeBBox {		
+			try {
+				return (<any>this.group.node).getBBox();
+			}
+			//Firefox throws an error if getBBox is invoked when the given node is not visible (see: http://stackoverflow.com/questions/6390065/doing-ajax-updates-in-svg-breaks-getbbox-is-there-a-workaround and https://bugzilla.mozilla.org/show_bug.cgi?id=612118)
+			catch (ex) {
+				return {
+					x: null,
+					y: null,
+					width: 0,
+					height: 0
+				};
+			}
 		}
 
 		getNode() {
