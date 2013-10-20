@@ -13,7 +13,8 @@
   <xs:sequence>
     <xs:element name="movie" type="movie"/>
     <xs:element name="price" type="xs:decimal"/>
-  </xs:sequence>    
+  </xs:sequence>
+  <xs:attribute name="ticketid"></xs:attribute>
 </xs:complexType>
 
 <xs:element name="screening">

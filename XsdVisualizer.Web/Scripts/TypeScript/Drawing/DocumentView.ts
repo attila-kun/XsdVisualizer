@@ -22,7 +22,7 @@ module XsdVisualizer.Drawing {
 
 			//realigning elements may have caused the whole drawing area to shrink or expand, therefore we need to resize the paper
 			var bbox = this.paperGroup.getBBox();
-			var extraSpacing = 20; //without this, some strange artifacts were visible at the SVG rects' edges
+			var extraSpacing = 25; //without this, some strange artifacts were visible at the SVG rects' edges
 			this.paper.setSize(bbox.width + extraSpacing, bbox.height + extraSpacing);
 		}
 	}

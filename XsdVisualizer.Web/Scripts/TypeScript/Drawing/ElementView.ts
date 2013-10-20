@@ -3,17 +3,23 @@
 module XsdVisualizer.Drawing {
 	export class ElementView extends Drawable {
 		private typeView: XsdVisualizer.Drawing.TypeView;
+		private textGroup: PaperGroup;
+		private rectElement: RaphaelElement;
+		private _currentX: number;
+		private _currentY: number;
 
 		constructor(
 			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
 			private element: XsdVisualizer.Model.Element
 			) {
 				super();
-				var rect = this.paperGroup.rect(0, 0, 100, 20);
-				rect.attr({"fill": "white"}); //needed to detect click inside the shape
-				rect.click(() => this.handleClick());
-				var text = this.paperGroup.text(50, 13, this.element.name);
-				text.click(() => this.handleClick());
+				this.rectElement = this.paperGroup.rect(0, 0, 170, 20);
+				this.rectElement.attr({"fill": "white"}); //needed to detect click inside the shape
+				this.rectElement.click(() => this.handleClick());
+				var text = this.element.name + (this.element.type && this.element.type.name ? (": " + this.element.type.name) : "");
+				this.textGroup = this.paperGroup.newGroup();
+				var textElement = this.textGroup.text(85, 13, text);
+				textElement.click(() => this.handleClick());
 		}
 
 		private lazyRenderTypeView() {
@@ -32,6 +38,8 @@ module XsdVisualizer.Drawing {
 		}
 
 		translate(x, y) {
+			this._currentX = x;
+			this._currentY = y;
 			this.paperGroup.translate(x, y);
 		}
 
@@ -45,7 +53,11 @@ module XsdVisualizer.Drawing {
 				return;
 
 			this.typeView.realign();
-			this.typeView.translate(120, 0);
+			this.typeView.translate(190, 0);
+		}
+
+		getCurrentY() {
+			return this._currentY;
 		}
 	}
 }

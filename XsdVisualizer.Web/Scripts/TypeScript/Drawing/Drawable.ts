@@ -21,7 +21,7 @@ module XsdVisualizer.Drawing {
 			_.each(elements, elementView => {
 				elementView.realign();
 				var bbox = elementView.getBBox();
-				elementView.translate(0, currentY);
+				elementView.translate(20, currentY);
 				currentY += bbox.height + 20;
 			});
 		}
