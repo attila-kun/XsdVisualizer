@@ -3,6 +3,7 @@
 module XsdVisualizer.Drawing {
 	export class ElementView extends Drawable {
 		private typeView: XsdVisualizer.Drawing.TypeView;
+		private isTypeViewRendered: boolean;
 		private textGroup: PaperGroup;
 		private rectElement: RaphaelElement;
 		private _currentX: number;
@@ -20,20 +21,32 @@ module XsdVisualizer.Drawing {
 				this.textGroup = this.paperGroup.newGroup();
 				var textElement = this.textGroup.text(85, 13, text);
 				textElement.click(() => this.handleClick());
+				this.initializeTypeView();
+
+				//setting cursor state
+				var cursor = this.typeView.isExpandable() ? "pointer" : "normal",
+					cursorAttr = { "cursor": cursor };
+
+				this.rectElement.attr(cursorAttr);
+				textElement.attr(cursorAttr);
 		}
 
-		private lazyRenderTypeView() {
-			if (this.typeView != null)
-				return;
-
+		private initializeTypeView() {
 			var newGroup = this.paperGroup.newGroup();
 
 			if (this.element.type instanceof XsdVisualizer.Model.ComplexType) {
 				this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <XsdVisualizer.Model.ComplexType>this.element.type);
 			}
-			else {				
+			else {
 				this.typeView = new XsdVisualizer.Drawing.NonexpandableTypeView();
-			}			
+			}
+		}
+
+		private lazyRenderTypeView() {
+			if (!this.isTypeViewRendered) {
+				this.typeView.render();
+				this.isTypeViewRendered = true;
+			}
 		}
 
 		private handleClick() {			
@@ -56,7 +69,7 @@ module XsdVisualizer.Drawing {
 
 		realign() {		
 			//typeView may have not been lazily loaded yet	
-			if (this.typeView != null) {
+			if (this.isTypeViewRendered === true) {
 				this.typeView.realign();
 				this.typeView.translate(190, 0);
 			}

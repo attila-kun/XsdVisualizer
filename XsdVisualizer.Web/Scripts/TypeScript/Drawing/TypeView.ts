@@ -7,7 +7,6 @@ module XsdVisualizer.Drawing {
 		constructor(paperGroup: XsdVisualizer.Drawing.PaperGroup) {
 			super();
 			this.paperGroup = paperGroup;
-			this.hide();
 		}
 
 		getPaperGroup() {
@@ -29,5 +28,7 @@ module XsdVisualizer.Drawing {
 		toggleVisibility() { }
 
 		isExpandable(): boolean { return false; }
+
+		render() { }
 	}
 }

@@ -8,18 +8,22 @@ module XsdVisualizer.Drawing {
 			private complexType: XsdVisualizer.Model.ComplexType
 			) {
 				super(paperGroup);
+		}
 
-				if (this.complexType.sequence == null)
-					return;
+		render() {
+			if (this.complexType.sequence == null)
+				return;
 
-				this.borderRect = this.getPaperGroup().rect(0, 0, 5, 0);
-				this.borderRect.attr({"fill": "black"});
+			this.borderRect = this.getPaperGroup().rect(0, 0, 5, 0);
+			this.borderRect.attr({ "fill": "black" });
 
-				$.each(this.complexType.sequence.elements, (index, element) => {
-					var newGroup = this.getPaperGroup().newGroup();
-					var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);
-					this.elementViews.push(elementView);		
-				});
+			$.each(this.complexType.sequence.elements, (index, element) => {
+				var newGroup = this.getPaperGroup().newGroup();
+				var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);
+				this.elementViews.push(elementView);
+			});
+
+			this.hide();
 		}
 
 		getBBox(): NativeBBox {			
