@@ -139,6 +139,7 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\ComplexTypeView.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\Drawable.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\TypeView.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Drawing\NonexpandableTypeView.ts" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -16,27 +16,18 @@ module XsdVisualizer.Drawing {
 
 		getBBox(): XsdVisualizer.Drawing.NativeBBox {
 			throw new Error();
-			return null;
 		}
+		
+		realign() { }
 
-		realign() {
-			throw new Error();
-		}
+		translate(x, y) { }
 
-		translate(x, y) {
-			throw new Error();
-		}
+		hide() { }
 
-		hide() {
-			this.paperGroup.$getNode().hide();
-		}
+		show() { }
 
-		show() {
-			this.paperGroup.$getNode().show();
-		}
+		toggleVisibility() { }
 
-		toggleVisibility() {
-			this.paperGroup.$getNode().toggle();
-		}
+		isExpandable(): boolean { return false; }
 	}
 }

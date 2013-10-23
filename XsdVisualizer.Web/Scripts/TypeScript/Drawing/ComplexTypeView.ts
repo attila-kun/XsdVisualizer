@@ -26,6 +26,18 @@ module XsdVisualizer.Drawing {
 			return this.getPaperGroup().getBBox();
 		}
 
+		hide() {
+			this.getPaperGroup().$getNode().hide();
+		}
+
+		show() {
+			this.getPaperGroup().$getNode().show();
+		}
+
+		toggleVisibility() {
+			this.getPaperGroup().$getNode().toggle();
+		}
+
 		realign() {
 			this.realignElements(this.elementViews);
 			var bbox = this.getPaperGroup().getBBox();
@@ -34,6 +46,10 @@ module XsdVisualizer.Drawing {
 
 		translate(x, y) {
 			this.getPaperGroup().translate(x, y);
+		}
+
+		isExpandable(): boolean {
+			return true;
 		}
 	}
 }

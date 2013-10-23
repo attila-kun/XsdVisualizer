@@ -27,7 +27,13 @@ module XsdVisualizer.Drawing {
 				return;
 
 			var newGroup = this.paperGroup.newGroup();
-			this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <any>this.element.type); //TODO: fix cast
+
+			if (this.element.type instanceof XsdVisualizer.Model.ComplexType) {
+				this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <XsdVisualizer.Model.ComplexType>this.element.type);
+			}
+			else {				
+				this.typeView = new XsdVisualizer.Drawing.NonexpandableTypeView();
+			}			
 		}
 
 		private handleClick() {			
@@ -48,12 +54,12 @@ module XsdVisualizer.Drawing {
 			return bbox;
 		}
 
-		realign() {
-			if (this.typeView == null)
-				return;
-
-			this.typeView.realign();
-			this.typeView.translate(190, 0);
+		realign() {		
+			//typeView may have not been lazily loaded yet	
+			if (this.typeView != null) {
+				this.typeView.realign();
+				this.typeView.translate(190, 0);
+			}
 		}
 
 		getCurrentY() {
