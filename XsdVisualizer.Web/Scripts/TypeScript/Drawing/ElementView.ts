@@ -10,18 +10,18 @@ module XsdVisualizer.Drawing {
 		private _currentY: number;
 
 		constructor(
-			private paperGroup: XsdVisualizer.Drawing.DrawingContext,
+			private drawingContext: XsdVisualizer.Drawing.DrawingContext,
 			private element: XsdVisualizer.Model.Element
 			) {
 				super();
-				this.rectElement = this.paperGroup.rect(0, 0, 170, 20);
+				this.rectElement = this.drawingContext.rect(0, 0, 170, 20);
 				this.rectElement.attr({
 					"fill": "white", //needed to detect click inside the shape
 					"stroke": "black"
 				}); 
 				this.rectElement.click(() => this.handleClick());
 				var text = this.element.name + (this.element.type && this.element.type.name ? (": " + this.element.type.name) : "");
-				this.textGroup = this.paperGroup.newGroup();
+				this.textGroup = this.drawingContext.newGroup();
 				var textElement = this.textGroup.text(86, 13, text);
 				textElement.attr({
 					"font": "10px Arial",
@@ -39,7 +39,7 @@ module XsdVisualizer.Drawing {
 		}
 
 		private initializeTypeView() {
-			var newGroup = this.paperGroup.newGroup();
+			var newGroup = this.drawingContext.newGroup();
 
 			if (this.element.type instanceof XsdVisualizer.Model.ComplexType) {
 				this.typeView = new XsdVisualizer.Drawing.ComplexTypeView(newGroup, <XsdVisualizer.Model.ComplexType>this.element.type);
@@ -60,17 +60,17 @@ module XsdVisualizer.Drawing {
 			this.lazyRenderTypeView();
 			this.typeView.toggleVisibility();
 			//if an element is expanded of collapsed, then we need to propagate the change upwards, because possible height change may affect the position of other elements
-			this.paperGroup.$getNode().trigger("ExpandOrCollapse");
+			this.drawingContext.$getNode().trigger("ExpandOrCollapse");
 		}
 
 		translate(x, y) {
 			this._currentX = x;
 			this._currentY = y;
-			this.paperGroup.translate(x, y);
+			this.drawingContext.translate(x, y);
 		}
 
 		getBBox(): NativeBBox {			
-			var bbox = this.paperGroup.getBBox();
+			var bbox = this.drawingContext.getBBox();
 			return bbox;
 		}
 

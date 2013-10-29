@@ -16,8 +16,8 @@ module XsdVisualizer.Drawing {
 			});
 			var paper: SnapSvgPaper = Snap(700, 700);
 			this.$el.append(paper.node);
-			var paperGroup = new DrawingContext(paper, paper.group());									
-			this.documentView = new XsdVisualizer.Drawing.DocumentView(paper, paperGroup, document);
+			var drawingContext = new DrawingContext(paper, paper.group());									
+			this.documentView = new XsdVisualizer.Drawing.DocumentView(paper, drawingContext, document);
 		}
 
 		realign() {

@@ -4,21 +4,21 @@ module XsdVisualizer.Drawing {
 		private borderRect: SnapSvgElement;
 
 		constructor(
-			paperGroup: XsdVisualizer.Drawing.DrawingContext,
+			drawingContext: XsdVisualizer.Drawing.DrawingContext,
 			private complexType: XsdVisualizer.Model.ComplexType
 			) {
-				super(paperGroup);
+				super(drawingContext);
 		}
 
 		render() {
 			if (this.complexType.sequence == null)
 				return;
 
-			this.borderRect = this.getPaperGroup().rect(0, 0, 5, 0);
+			this.borderRect = this.getDrawingContext().rect(0, 0, 5, 0);
 			this.borderRect.attr({ "fill": "black" });
 
 			$.each(this.complexType.sequence.elements, (index, element) => {
-				var newGroup = this.getPaperGroup().newGroup();
+				var newGroup = this.getDrawingContext().newGroup();
 				var elementView = new XsdVisualizer.Drawing.ElementView(newGroup, element);
 				this.elementViews.push(elementView);
 			});
@@ -27,29 +27,29 @@ module XsdVisualizer.Drawing {
 		}
 
 		getBBox(): NativeBBox {			
-			return this.getPaperGroup().getBBox();
+			return this.getDrawingContext().getBBox();
 		}
 
 		hide() {
-			this.getPaperGroup().$getNode().hide();
+			this.getDrawingContext().$getNode().hide();
 		}
 
 		show() {
-			this.getPaperGroup().$getNode().show();
+			this.getDrawingContext().$getNode().show();
 		}
 
 		toggleVisibility() {
-			this.getPaperGroup().$getNode().toggle();
+			this.getDrawingContext().$getNode().toggle();
 		}
 
 		realign() {
 			this.realignElements(this.elementViews);
-			var bbox = this.getPaperGroup().getBBox();
+			var bbox = this.getDrawingContext().getBBox();
 			this.borderRect.attr("height", _.last(this.elementViews).getCurrentY() + 20);
 		}
 
 		translate(x, y) {
-			this.getPaperGroup().translate(x, y);
+			this.getDrawingContext().translate(x, y);
 		}
 
 		isExpandable(): boolean {

@@ -2,15 +2,15 @@ module XsdVisualizer.Drawing {
 
 	export class TypeView extends Drawable {
 
-		private paperGroup: XsdVisualizer.Drawing.DrawingContext;
+		private drawingContext: XsdVisualizer.Drawing.DrawingContext;
 
 		constructor(paperGroup: XsdVisualizer.Drawing.DrawingContext) {
 			super();
-			this.paperGroup = paperGroup;
+			this.drawingContext = paperGroup;
 		}
 
-		getPaperGroup() {
-			return this.paperGroup;
+		getDrawingContext() {
+			return this.drawingContext;
 		}
 
 		getBBox(): XsdVisualizer.Drawing.NativeBBox {
