@@ -1,10 +1,10 @@
 module XsdVisualizer.Drawing {
 	export class ComplexTypeView extends TypeView {
 		private elementViews: XsdVisualizer.Drawing.ElementView[] = [];		
-		private borderRect: RaphaelElement;
+		private borderRect: SnapSvgElement;
 
 		constructor(
-			paperGroup: XsdVisualizer.Drawing.PaperGroup,
+			paperGroup: XsdVisualizer.Drawing.DrawingContext,
 			private complexType: XsdVisualizer.Model.ComplexType
 			) {
 				super(paperGroup);

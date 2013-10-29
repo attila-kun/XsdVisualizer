@@ -124,15 +124,12 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\VisualizerView.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\DocumentView.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\ElementView.ts" />
-    <TypeScriptCompile Include="Scripts\Thirdparty\raphael.group.d.ts" />
-    <TypeScriptCompile Include="Scripts\TypeScript\Drawing\PaperGroup.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Drawing\DrawingContext.ts" />
     <Content Include="Scripts\Thirdparty\jquery.d.ts" />
-    <Content Include="Scripts\Thirdparty\raphael.d.ts" />
-    <Content Include="Scripts\Thirdparty\raphael.group.js" />
-    <Content Include="Scripts\Thirdparty\raphael.js" />
     <TypeScriptCompile Include="Scripts\TypeScript\References.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Model.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\XsdVisualizer.ts" />
+    <Content Include="Scripts\Thirdparty\snap.svg.js" />
     <Content Include="Scripts\Thirdparty\underscore.d.ts" />
     <Content Include="Scripts\Thirdparty\underscore.js" />
     <Content Include="Scripts\TypeScript\.gitignore" />
@@ -140,6 +137,7 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\Drawable.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\TypeView.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Drawing\NonexpandableTypeView.ts" />
+    <Content Include="Scripts\TypeScript\snap.svg.d.ts" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

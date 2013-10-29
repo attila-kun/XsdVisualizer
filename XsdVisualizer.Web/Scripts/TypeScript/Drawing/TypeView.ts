@@ -2,9 +2,9 @@ module XsdVisualizer.Drawing {
 
 	export class TypeView extends Drawable {
 
-		private paperGroup: XsdVisualizer.Drawing.PaperGroup;
+		private paperGroup: XsdVisualizer.Drawing.DrawingContext;
 
-		constructor(paperGroup: XsdVisualizer.Drawing.PaperGroup) {
+		constructor(paperGroup: XsdVisualizer.Drawing.DrawingContext) {
 			super();
 			this.paperGroup = paperGroup;
 		}

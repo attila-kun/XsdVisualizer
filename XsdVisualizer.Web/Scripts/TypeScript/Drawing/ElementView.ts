@@ -4,22 +4,25 @@ module XsdVisualizer.Drawing {
 	export class ElementView extends Drawable {
 		private typeView: XsdVisualizer.Drawing.TypeView;
 		private isTypeViewRendered: boolean;
-		private textGroup: PaperGroup;
-		private rectElement: RaphaelElement;
+		private textGroup: DrawingContext;
+		private rectElement: SnapSvgElement;
 		private _currentX: number;
 		private _currentY: number;
 
 		constructor(
-			private paperGroup: XsdVisualizer.Drawing.PaperGroup,
+			private paperGroup: XsdVisualizer.Drawing.DrawingContext,
 			private element: XsdVisualizer.Model.Element
 			) {
 				super();
 				this.rectElement = this.paperGroup.rect(0, 0, 170, 20);
-				this.rectElement.attr({"fill": "white"}); //needed to detect click inside the shape
+				this.rectElement.attr({
+					"fill": "white", //needed to detect click inside the shape
+					"stroke": "black"
+				}); 
 				this.rectElement.click(() => this.handleClick());
 				var text = this.element.name + (this.element.type && this.element.type.name ? (": " + this.element.type.name) : "");
 				this.textGroup = this.paperGroup.newGroup();
-				var textElement = this.textGroup.text(85, 13, text);
+				var textElement = this.textGroup.text(2, 15, text);
 				textElement.click(() => this.handleClick());
 				this.initializeTypeView();
 

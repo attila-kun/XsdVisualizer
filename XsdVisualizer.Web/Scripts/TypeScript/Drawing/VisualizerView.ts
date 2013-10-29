@@ -14,8 +14,9 @@ module XsdVisualizer.Drawing {
 			this.$el = $("<div></div>", {
 				"class": "VisualizerView"
 			});
-			var paper: RaphaelPaper = Raphael(this.$el[0], 700, 700);
-			var paperGroup = new PaperGroup(paper, paper.group());									
+			var paper: SnapSvgPaper = Snap(700, 700);
+			this.$el.append(paper.node);
+			var paperGroup = new DrawingContext(paper, paper.group());									
 			this.documentView = new XsdVisualizer.Drawing.DocumentView(paper, paperGroup, document);
 		}
 
