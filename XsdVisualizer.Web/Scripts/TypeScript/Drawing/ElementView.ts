@@ -22,7 +22,11 @@ module XsdVisualizer.Drawing {
 				this.rectElement.click(() => this.handleClick());
 				var text = this.element.name + (this.element.type && this.element.type.name ? (": " + this.element.type.name) : "");
 				this.textGroup = this.paperGroup.newGroup();
-				var textElement = this.textGroup.text(2, 15, text);
+				var textElement = this.textGroup.text(86, 13, text);
+				textElement.attr({
+					"font": "10px Arial",
+					"text-anchor": "middle"
+				});
 				textElement.click(() => this.handleClick());
 				this.initializeTypeView();
 
